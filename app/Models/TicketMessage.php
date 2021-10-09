@@ -9,6 +9,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class TicketMessage extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'message',
+        'user_id',
+        'ticket_id',
+    ];
     
     /**
      * @return BelongsTo

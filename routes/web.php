@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TicketController;
+use App\Http\Controllers\Web\TicketController;
 use Illuminate\Support\Facades\Route;
 
 /*

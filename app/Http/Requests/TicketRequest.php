@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class TicketRequest extends FormRequest
 {
@@ -29,7 +31,38 @@ class TicketRequest extends FormRequest
             'subject' => 'required|string',
             'message' => 'required|string',
             'password' => '',
-            // 'g-recaptcha-response' => 'recaptcha',
+            'user' => '',
+            'g-recaptcha-response' => 'recaptcha',
         ];
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     *
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $this->merge([
+                'user' => User::where('username', $this->username)
+                    ->orWhere('email', $this->email)
+                    ->first(),
+            ]);
+
+            if (is_null($this->user)) {
+                $validator->errors()->add('username', 'User Not Found!');
+            }
+
+            if (
+                $this->password
+                && $this->user
+                && ! Hash::check($this->password, $this->user->password)
+            ) {
+                $validator->errors()->add('password', 'Password is incorrect!');
+            }
+        });
     }
 }

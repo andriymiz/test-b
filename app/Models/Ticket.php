@@ -34,6 +34,7 @@ class Ticket extends Model
     protected $fillable = [
         'subject',
         'status',
+        'user_id',
     ];
 
     /**
@@ -50,17 +51,5 @@ class Ticket extends Model
     public function messages(): HasMany
     {
         return $this->hasMany(TicketMessage::class);
-    }
-
-    /**
-     * @return boolean
-     */
-    public function confirm(): bool
-    {
-        if (self::STATUS_NEW) {
-            $this->status = self::STATUS_OPEN;
-        }
-
-        return $this->save();
     }
 }
