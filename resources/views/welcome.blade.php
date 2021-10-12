@@ -24,12 +24,12 @@
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
+                            <input type="text" class="form-control" id="username" name="username">
                         </div>
 
                         <div class="col-sm-6">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email">
                         </div>
 
                         <div class="col-12">
@@ -51,11 +51,11 @@
                     {!! htmlFormSnippet() !!}
 
                     <hr class="my-4">
-            
+
                     <button class="w-100 btn btn-primary btn-lg" type="submit">Send</button>
                 </form>
             </main>
-        
+
             <footer class="my-5 pt-5 text-muted text-center text-small">
                 <p class="mb-1">Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})</p>
             </footer>

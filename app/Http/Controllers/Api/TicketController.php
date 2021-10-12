@@ -19,7 +19,9 @@ class TicketController extends Controller
      */
     public function create(TicketRequest $request, TicketService $service): JsonResponse
     {
-        $service->create($request);
+        $user = $service->findUser($request->username, $request->email);
+        $withPassword = $service->checkPassword($user, $request->password);
+        $service->create($request, $user, $withPassword);
 
         return response()->json([
             'message' => 'Success',
